@@ -1,26 +1,55 @@
-function randomColors() {
-  const rColor = Math.floor(Math.random() * 256);
-  const gColor = Math.floor(Math.random() * 256);
-  const bColor = Math.floor(Math.random() * 256);
-  const rGBColor = `rgb(${rColor}, ${gColor}, ${bColor})`;
+function rColor() {
+  return Math.floor(Math.random() * 256);
+}
+
+function randomColors(red, green, blue) {
+  const rGBColor = `rgb(${red}, ${green}, ${blue})`;
   return rGBColor;
 }
 
-function sixColors() {
-  const cor1 = document.getElementById('ball-1');
-  const cor2 = document.getElementById('ball-2');
-  const cor3 = document.getElementById('ball-3');
-  const cor4 = document.getElementById('ball-4');
-  const cor5 = document.getElementById('ball-5');
-  const cor6 = document.getElementById('ball-6');
-  cor1.style.backgroundColor = randomColors();
-  cor2.style.backgroundColor = randomColors();
-  cor3.style.backgroundColor = randomColors();
-  cor4.style.backgroundColor = randomColors();
-  cor5.style.backgroundColor = randomColors();
-  cor6.style.backgroundColor = randomColors();
+function colorAnswer() {
+  return Math.floor(Math.random() * 6) + 1;
 }
 
-window.onload = function() {
+function sixColors() {
+  const color1 = document.getElementById('ball-1');
+  const color2 = document.getElementById('ball-2');
+  const color3 = document.getElementById('ball-3');
+  const color4 = document.getElementById('ball-4');
+  const color5 = document.getElementById('ball-5');
+  const color6 = document.getElementById('ball-6');
+  color1.style.backgroundColor = randomColors(rColor(), rColor(), rColor());
+  color2.style.backgroundColor = randomColors(rColor(), rColor(), rColor());
+  color3.style.backgroundColor = randomColors(rColor(), rColor(), rColor());
+  color4.style.backgroundColor = randomColors(rColor(), rColor(), rColor());
+  color5.style.backgroundColor = randomColors(rColor(), rColor(), rColor());
+  color6.style.backgroundColor = randomColors(rColor(), rColor(), rColor());
+}
+
+function answerColor() {
+  const answer = colorAnswer();
+  const answerId = `ball-${answer}`;
+  const answerBall = document.getElementById(answerId);
+  const answerCssObj = window.getComputedStyle(answerBall, null);
+  const answerBgColor = answerCssObj.getPropertyValue('background-color');
+  return answerBgColor;
+}
+
+window.onload = function onLoad() {
   sixColors();
+  const answer = answerColor();
+  document.getElementById('rgb-color').innerText = answer;
+  function clickAnswer(event) {
+    if (event.target.classList.contains('ball')) {
+      const targetBall = event.target;
+      const targetBallCssObj = window.getComputedStyle(targetBall, null);
+      const targetBallColor = targetBallCssObj.getPropertyValue('background-color');
+      if (targetBallColor === answer) {
+        document.getElementById('answer').innerText = 'Acertou!';
+      } else {
+        document.getElementById('answer').innerText = 'Errou! Tente novamente';
+      }
+    }
+  }
+  document.addEventListener('click', clickAnswer);
 };
