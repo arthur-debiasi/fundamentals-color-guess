@@ -1,5 +1,4 @@
 #circle-container {
-    border: black solid 0.1vh;
     min-width: 35vh;
     min-height: 25vh;
     display: flex;
