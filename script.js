@@ -35,21 +35,33 @@ function answerColor() {
   return answerBgColor;
 }
 
-window.onload = function onLoad() {
-  sixColors();
-  const answer = answerColor();
-  document.getElementById('rgb-color').innerText = answer;
-  function clickAnswer(event) {
-    if (event.target.classList.contains('ball')) {
-      const targetBall = event.target;
-      const targetBallCssObj = window.getComputedStyle(targetBall, null);
-      const targetBallColor = targetBallCssObj.getPropertyValue('background-color');
-      if (targetBallColor === answer) {
-        document.getElementById('answer').innerText = 'Acertou!';
-      } else {
-        document.getElementById('answer').innerText = 'Errou! Tente novamente';
-      }
+sixColors();
+const answer = answerColor();
+document.getElementById('rgb-color').innerText = answer;
+function clickAnswer(event) {
+  if (event.target.classList.contains('ball')) {
+    const targetBall = event.target;
+    const targetBallCssObj = window.getComputedStyle(targetBall, null);
+    const targetBallColor = targetBallCssObj.getPropertyValue('background-color');
+    let score = JSON.parse(localStorage.getItem('score'));
+    if (targetBallColor === answer) {
+      document.getElementById('answer').innerText = 'Acertou!';
+      score += 3;
+      localStorage.setItem('score', score);
+      document.getElementById('score').innerText = score;
+    } else {
+      document.getElementById('answer').innerText = 'Errou! Tente novamente';
     }
   }
-  document.addEventListener('click', clickAnswer);
+}
+document.addEventListener('click', clickAnswer);
+
+window.onload = function onLoad() {
+  const score = document.getElementById('score');
+  if (localStorage.getItem('score') === null) {
+    localStorage.setItem('score', 0);
+    score.innerText = localStorage.getItem('score');
+  } else {
+    score.innerText = localStorage.getItem('score');
+  }
 };
