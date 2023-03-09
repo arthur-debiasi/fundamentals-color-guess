@@ -1,4 +1,4 @@
-# [Trybe](https://www.betrybe.com/) Project - [Color Guess](https://arthur-debiasi.github.io/fundamentals-color-guess/)
+# [Trybe](https://www.betrybe.com/) Project - [Color Guess](https://arthur-debiasi.github.io/trybe-fundamentals-color-guess/)
 
 ## 💻 Project
 A color guess game.  RGB color value (red, green, blue) is specified each turn. The player can choose between five colors and scores 3 point when the atempt is correct.
